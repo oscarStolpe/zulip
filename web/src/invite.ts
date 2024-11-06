@@ -74,7 +74,7 @@ function get_common_invitation_data(): {
     let include_realm_default_subscriptions = false;
     if (
         $("#invite_select_default_streams").prop("checked") ||
-        !settings_data.user_can_subscribe_other_users()
+        !settings_data.user_can_subscribe_other_users() 
     ) {
         include_realm_default_subscriptions = true;
     } else {
@@ -434,6 +434,17 @@ function open_invite_user_modal(e: JQuery.ClickEvent<Document, undefined>): void
 
         $("#invite_select_default_streams").on("change", () => {
             set_streams_to_join_list_visibility();
+        });
+
+        $("#invite_as").on("change", () => {
+            const memberType = get_common_invitation_data().invite_as;
+            if(memberType == 600){
+                $("#invite_select_default_streams").prop("checked", false);
+                set_streams_to_join_list_visibility();
+            }else{
+                $("#invite_select_default_streams").prop("checked", true);
+                set_streams_to_join_list_visibility();
+            }
         });
 
         if (!user_has_email_set) {
